@@ -1,0 +1,45 @@
+export HISTFILE="$XDG_STATE_HOME"/bash/history
+
+[[ $- != *i* ]] && return
+
+cc() {
+    if [ -d 'pyenv' ]; then
+        python "$HOME"/whi_ne/3/projects/personal/repos/whinee/scripts/fetch.py
+    elif [ -d '.git' ]; then
+        onefetch
+    else
+        python "$HOME"/whi_ne/3/projects/personal/repos/whinee/scripts/os_fetch.py
+    fi
+}
+
+pc(){
+    sc="$?"
+    if git branch >/dev/null 2>/dev/null; then
+        pc="±"
+    else
+        pc="➜"
+    fi
+    if [ "$sc" == "0" ]; then
+        echo -e "\e[1;32m$pc\e[0m"
+    else
+        echo -e "\e[1;31m$pc\e[0m"
+    fi
+}
+
+PS1="\e[38;2;144;95;227m\u\e[38;2;243;149;251m@\e[38;2;113;100;237m\h \e[38;2;243;149;251m\w
+"'`pc` '
+
+. "$XDG_CONFIG_HOME"/bash/source.sh
+if [ -f source.sh ]; then
+    . source.sh
+fi
+
+c() {
+    clear
+    cc
+    "$@"
+}
+
+export zi="\n\033[38;2;151;120;211mzsh init\033[0m : $(printf "%.2fs" "$(echo "$(date +%s.%N) - $start" | bc)")"
+c
+echo -e " \033[38;2;151;120;211moverall\033[0m : $(printf "%.2fs" "$(echo "$(date +%s.%N) - $start" | bc)")\n"

@@ -1,0 +1,36 @@
+# Directories
+.history/
+Code/
+configstore/
+dconf/
+discord/
+Electron/
+GIMP/
+Insomnia/
+keepassxc/
+libreoffice/
+obs-studio/basic/
+obs-studio/logs/
+obs-studio/plugin_config/
+obs-studio/profiler_data/
+powershell/
+procps/
+pulse/
+rclone/
+sourcetrail/
+teamviewer/
+transmission/blocklists
+transmission/resume
+transmission/torrents
+ura/
+VirtualBox/
+wakatime/
+yarn/global/node_modules/
+
+# Files
+transmission/stats.json
+yarn/global/package.json
+yarn/global/yarn-error.log
+yarn/global/yarn.lock
+.org.chromium.Chromium.*
+QtProject.conf

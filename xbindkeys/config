@@ -1,0 +1,51 @@
+"flameshot gui"
+    m:0x0 + c:107
+    Print
+
+"pactl set-sink-mute $(pactl info | grep "Default Sink" | cut -f2 -d: | sed 's/^ *//') toggle"
+    m:0x0 + c:118
+    Insert
+
+"pactl set-sink-volume $(pactl info | grep "Default Sink" | cut -f2 -d: | sed 's/^ *//') -10%"
+    m:0x0 + c:110
+    Home
+
+"pactl set-sink-volume $(pactl info | grep "Default Sink" | cut -f2 -d: | sed 's/^ *//') +10%"
+    m:0x0 + c:112
+    Prior + Release
+
+"playerctl previous"
+    m:0x0 + c:119
+    Delete
+
+"playerctl play-pause"
+    m:0x0 + c:115
+    End
+
+"playerctl next"
+    m:0x0 + c:117
+    Next
+
+"xdotool key Insert"
+    m:0x8 + c:118
+    Alt + Insert
+
+"xdotool key Home"
+    m:0x8 + c:110
+    Alt + Home
+
+"xdotool key Page_Up"
+    m:0x8 + c:112
+    Alt + Prior
+
+"xdotool key Delete"
+    m:0x8 + c:119
+    Alt + Delete
+
+"xdotool key End"
+    m:0x8 + c:115
+    Alt + End
+
+"xdotool key Page_Down"
+    m:0x8 + c:117
+    Alt + Next

@@ -6,7 +6,7 @@
   <property name="last-window-width" type="int" value="1362"/>
   <property name="last-window-height" type="int" value="729"/>
   <property name="last-window-maximized" type="bool" value="false"/>
-  <property name="last-separator-position" type="int" value="153"/>
+  <property name="last-separator-position" type="int" value="151"/>
   <property name="last-show-hidden" type="bool" value="true"/>
   <property name="last-side-pane" type="string" value="ThunarShortcutsPane"/>
   <property name="last-location-bar" type="string" value="ThunarLocationEntry"/>
@@ -16,4 +16,11 @@
   <property name="last-details-view-column-widths" type="string" value="50,127,50,50,746,50,50,73,50,262"/>
   <property name="last-compact-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_50_PERCENT"/>
   <property name="misc-confirm-close-multiple-tabs" type="bool" value="false"/>
+  <property name="misc-single-click" type="bool" value="false"/>
+  <property name="shortcuts-icon-size" type="string" value="THUNAR_ICON_SIZE_24"/>
+  <property name="tree-icon-emblems" type="bool" value="true"/>
+  <property name="shortcuts-icon-emblems" type="bool" value="true"/>
+  <property name="misc-open-new-window-as-tab" type="bool" value="true"/>
+  <property name="misc-show-delete-action" type="bool" value="true"/>
+  <property name="misc-date-style" type="string" value="THUNAR_DATE_STYLE_YYYYMMDD"/>
 </channel>

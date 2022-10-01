@@ -15977,8 +15977,8 @@ div.preview.inline .monaco-editor .comment-range-glyph {
 
 /* whi_ne's mod start */
 
-div.split-view-container {
-    background-image: url('/home/whine/.config/bg.gif') !important;
+div:not(.monaco-pane-view)>div>div>div.split-view-container {
+    background-image: url('/home/whine/.config/bg2.gif') !important;
     position: absolute !important;
     width: 100% !important;
     height: 100% !important;
@@ -15994,42 +15994,13 @@ div.split-view-container {
     background-color: unset !important;
 }
 
-#workbench\.parts\.editor > div.content > div.grid-view-container > div > div > div > div.monaco-scrollable-element > div.split-view-container div > div.editor-container {
-    background-color: #1a1b28cc !important;
+#workbench\.parts\.editor>div.content>div.grid-view-container>div>div>div>div.monaco-scrollable-element>div.split-view-container div>div.editor-container,
+div.editor-group-container.empty {
+    background-color: hsla(236, 21%, 13%, 0.7) !important;
 }
 
-.terminal-overflow-guard {
-    background-color: #1a1b29 !important;
+div.terminal-overflow-guard, div.terminal-split-pane {
+    background-color: hsl(236, 22%, 13%) !important;
 }
-
-/* [id="workbench.parts.editor"] .split-view-view:nth-child(1) .editor-container .editor-instance>.monaco-editor .overflow-guard>.monaco-scrollable-element::after {
-    background-image: url('/home/whine/.config/bg2.jpg');
-    content: '';
-    pointer-events: none;
-    position: absolute;
-    z-index: 99999;
-    width: 100%;
-    height: 100%;
-    background-position: 100% 100%;
-    background-repeat: no-repeat;
-    opacity: 1;
-}
-
-[id="workbench.parts.editor"] .split-view-view:nth-child(1) .empty::before {
-    background-image: url('/home/whine/.config/bg2.jpg');
-    content: '';
-    pointer-events: none;
-    position: absolute;
-    z-index: 99999;
-    width: 100%;
-    height: 100%;
-    background-position: 100% 100%;
-    background-repeat: no-repeat;
-    opacity: 0.1;
-}
-
-[id="workbench.parts.editor"] .split-view-view .editor-container .editor-instance>.monaco-editor .overflow-guard>.monaco-scrollable-element>.monaco-editor-background {
-    background: none;
-} */
 
 /* whine's mod end */

@@ -1,0 +1,16 @@
+{
+	"all": {
+		"dates": {
+			"joinedAtDate": {
+				"formatString": "Joined $agoAmount ($date)"
+			}
+		},
+		"general": {
+			"displayText": false
+		},
+		"places": {
+			"userPopout": true,
+			"userProfile": false
+		}
+	}
+}

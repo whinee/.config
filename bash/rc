@@ -30,6 +30,7 @@ PS1="\e[38;2;144;95;227m\u\e[38;2;243;149;251m@\e[38;2;113;100;237m\h \e[38;2;24
 "'`pc` '
 
 . "$XDG_CONFIG_HOME"/bash/source.sh
+. "$XDG_CONFIG_HOME"/bash/init.sh
 if [ -f source.sh ]; then
     . source.sh
 fi

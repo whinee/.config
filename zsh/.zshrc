@@ -125,6 +125,7 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%F{#5367D6})"
 setopt rmstarsilent
 
 . "$XDG_CONFIG_HOME"/bash/source.sh
+. "$XDG_CONFIG_HOME"/bash/init.sh
 
 cc() {
     if [ -d 'pyenv' ]; then

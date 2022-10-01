@@ -1,0 +1,16 @@
+{
+	"all": {
+		"dates": {
+			"creationDate": {
+				"formatString": "Created $agoAmount ($date)"
+			}
+		},
+		"general": {
+			"displayText": false
+		},
+		"places": {
+			"userPopout": true,
+			"userProfile": false
+		}
+	}
+}

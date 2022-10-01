@@ -2,35 +2,6 @@ export start="$(date +%s.%N)"
 
 export PATH="${HOME}/bin:${HOME}/whi_ne/2/.local:${HOME}/.local/bin:${PATH}"
 
-# Alias
-
-alias ..='cd ..'
-alias bc='bc "$XDG_CONFIG_HOME"/bc/rc'
-alias free='free -mt'
-alias grep='grep --color=auto'
-alias histg='history | grep'
-alias ll='ls -lisa --color=auto'
-alias ls='ls -CF --color=auto'
-alias myip='curl ipv4.icanhazip.com'
-alias mkdir='mkdir -pv'
-alias ps='ps auxf'
-alias psgrep='ps aux | grep -v grep | grep -i -e VSZ -e'
-alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts" -c'
-alias xbindkeys='xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config'
-alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME"/yarn/config'
-
-# Sources
-
-if [ -d "venv" ]; then
-    source venv/bin/activate
-elif [ -d "pyenv" ]; then
-    source pyenv/bin/activate
-fi
-
-if [ -f "source.sh" ]; then
-    source source.sh
-fi
-
 # Standalones
 
 vol() {
@@ -129,13 +100,20 @@ extract_frames() {
         printf '%s' "$frames" |
             sed 's:\[\|\]::g; s:[, ]\+:\n:g' |
             xargs printf '%03d\n' |
-            xargs -IFRAME ffmpeg -i "$filename" -vf "select=eq(n\,FRAME)" -vframes 1 out_imageFRAME.jpg
+            xargs -IFRAME ffmpeg -i "$filename" -vf "select=eq(n\,FRAME)" -q:v 5 -vframes 1 FRAME.png
     }
     t "Extracting frames" "Failed extracting frames." inner "$@"
 }
 
 backup() {
     local tmp tmp_ls enc_passwd enc_conf_passwd ufc
+
+    pkill -f discord
+    pkill -f firefox
+    pkill -f code
+    pkill -f libreoffice
+    pkill -f virtualbox
+    pkill -f zathura
 
     printf "Upload Backup (y/n)? "
     read -r ufc
@@ -194,31 +172,69 @@ pyenv() {
     python -m pip install --upgrade pip
     if type "dev" >/dev/null 2>&1; then
         dev req
+    elif type "menu" >/dev/null 2>&1; then
+        menu req
     else
         python -m pip install -r requirements.txt
     fi
     python -m pip cache purge
 }
 
-_clean() {
-    sudo bleachbit -c --preset >/dev/null &
-    bleachbit -c --preset >/dev/null &
-    paru -Rsun --noconfirm "$@" &
-    wait
-
-    paru -Rsun --noconfirm "$(paru -Qqdtt --noconfirm)"
-    paru -Scc --noconfirm
-}
-
 _vsc() {
-    chmod 777 /opt/visual-studio-code
-    cat "$XDG_CONFIG_HOME"/vscode.css >/opt/visual-studio-code/resources/app/out/vs/workbench/workbench.desktop.main.css
+    su -c 'chmod 777 /opt/visual-studio-code && cat "$XDG_CONFIG_HOME"/vscode.css >/opt/visual-studio-code/resources/app/out/vs/workbench/workbench.desktop.main.css'
 }
 
 # Escalators
-
 clean() {
-    escalate _clean "$@"
+    local passwd
+    if [ -t 0 ]; then
+        piped=0
+        passwd="$(pw)"
+    else
+        if [ -t 1 ]; then
+            piped=1
+            read -rs passwd
+        fi
+    fi
+
+    (
+        echo "$passwd" | sudo -S bleachbit -c --preset >/dev/null &
+        bleachbit -c --preset >/dev/null &
+        paru -Rsun --noconfirm "$@" &
+        rm -rf "$XDG_DATA_HOME"/Trash &
+        wait
+    )
+
+    echo "$passwd" | paru -Rsun --noconfirm "$(paru -Qqdtt --noconfirm)" --sudoflags -S
+    echo "$passwd" | paru -Scc --noconfirm --sudoflags -S
+}
+
+bd_inst() {
+    cd /home/whine/whi_ne/2/tools/computer/ &&
+        git clone https://github.com/BetterDiscord/BetterDiscord.git &&
+        cd BetterDiscord/ &&
+        python -c "import re
+with open('package.json') as f:op=re.sub('\\s+\"install\": .+','',f.read(), 0, re.MULTILINE)
+with open('package.json','w') as f:f.write(op)" &&
+        rm -f package-lock.json &&
+        yarn &&
+        cd injector &&
+        yarn &&
+        yarn webpack --progress --color &&
+        cd ../renderer &&
+        yarn &&
+        yarn webpack --progress --color &&
+        cd .. &&
+        node scripts/inject.js
+}
+
+dconv() {
+    pwd="$PWD"
+
+    cd "$1" &&
+        soffice --headless --convert-to "$3" "$2" &&
+        [ -n "$4" ] && rm -rf "$2"
+    cd "$pwd"
 }
 
 inst() {
@@ -234,8 +250,16 @@ inst() {
     fi
 
     echo "$passwd" | paru -Syyu --noconfirm --sudoloop --batchinstall "$@" --sudoflags -S
-    echo "$passwd" | escalate _vsc
-    echo "$passwd" | escalate _clean
+    cd ~ &&
+        cd whi_ne/2/tools/computer/BetterDiscord/ &&
+        HEADHASH="$(git rev-parse HEAD)" &&
+        UPSTREAMHASH="$(git rev-parse main@{upstream})" &&
+        if [ "$HEADHASH" != "$UPSTREAMHASH" ]; then
+            bd_inst
+        fi
+    cd ~
+    echo "$passwd" | _vsc
+    echo "$passwd" | clean
 }
 
 # Last Dependents
@@ -243,11 +267,6 @@ inst() {
 gnight() {
     local passwd
     passwd="$(pw)"
-
-    pkill -f discord
-    pkill -f firefox
-    pkill -f code
-    pkill -f teamviewer
 
     backup
     echo "$passwd" | inst "$@"

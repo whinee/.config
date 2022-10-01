@@ -1,0 +1,20 @@
+{
+    "currentVersionInfo": {
+        "version": "1.8.0",
+        "hasShownChangelog": true
+    },
+    "settings": {
+        "sendDirectly": true,
+        "split": true,
+        "splitDelay": 100,
+        "splitDelaySlowdown": true,
+        "splitLimit": 0,
+        "splitLimitMode": true,
+        "emojiSize": 64,
+        "removeGrayscale": "always",
+        "missingEmbedPerms": "showDialog",
+        "external": "showDialog",
+        "replacePNG": false
+    },
+    "discontinuationNoticeDismissed": true
+}

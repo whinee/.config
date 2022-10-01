@@ -1,0 +1,14 @@
+userapp
+pwmt
+zathura
+mupdf
+flic
+gifview
+webp
+mpegurl
+appimage
+pkcs8
+openxmlformats
+officedocument
+wordprocessingml
+filepicker

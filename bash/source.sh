@@ -4,6 +4,18 @@ export PATH="${HOME}/bin:${HOME}/whi_ne/2/.local:${HOME}/.local/bin:${PATH}"
 
 # Standalones
 
+h() {
+    for n in 1 2 3 4 5 6; do
+        op=$(bc -l <<<"b=$1;n=$n;b*p(2,(((-2*n)+7)/5))" 2>/dev/null)
+        echo -e "h$n {\n$t font-size: $(printf "%.fpx;" "$op")\n$t font-weight: bold;\n}\n"
+    done
+}
+
+
+virtualenv_info() {
+    [ $VIRTUAL_ENV ] && echo '('$(basename $VIRTUAL_ENV)') '
+}
+
 vol() {
     local ls v t
     ls=("left" "right")
@@ -13,13 +25,6 @@ vol() {
         ((v = v + $(echo "$t" | grep "front-$i" | cut -f3 -d: | cut -f2 -d/ | sed "s/^ *//" | tr -d %)))
     done
     echo "$((s / ${#l[@]}))%"
-}
-
-h() {
-    for n in 1 2 3 4 5 6; do
-        op=$(bc -l <<<"b=$1;n=$n;b*p(2,(((-2*n)+7)/5))" 2>/dev/null)
-        echo -e "h$n {\n$t font-size: $(printf "%.fpx;" "$op")\n$t font-weight: bold;\n}\n"
-    done
 }
 
 # Dependencies
@@ -253,7 +258,7 @@ inst() {
     cd ~ &&
         cd whi_ne/2/tools/computer/BetterDiscord/ &&
         HEADHASH="$(git rev-parse HEAD)" &&
-        UPSTREAMHASH="$(git rev-parse main@{upstream})" &&
+        UPSTREAMHASH="$(git rev-parse main@\{upstream\})" &&
         if [ "$HEADHASH" != "$UPSTREAMHASH" ]; then
             bd_inst
         fi

@@ -16,6 +16,7 @@
         "2154",
         "2155",
         "2162",
+        "2164",
         "2195",
         "2238",
         "3024",
@@ -51,6 +52,9 @@
         "reportUnnecessaryIsInstance": "none",
         "reportUnnecessaryComparison": "none",
         "reportUnusedFunction": "none",
+        "reportUntypedClassDecorator": "none",
+        "reportPrivateImportUsage": "none",
+        "reportPrivateUsage": "none",
         // warning
         "reportUnusedImport": "warning",
         // error

@@ -10,7 +10,8 @@ prompt_char() {
     echo "%(?:%{$fg_bold[green]%}➜ %{$reset_color%}:%{$fg_bold[red]%}➜ )%{$reset_color%}"
 }
 
-PROMPT='╭─ $(virtualenv_info)%F{#905FE3}%n%{$reset_color%}%F{#f395fb}@%{$reset_color%}%F{#7164ED}%m%{$reset_color%} %F{#f395fb}%c%{$reset_color%} %F{#E993B4}%{$reset_color%}$(git_prompt_info)
+PROMPT='
+╭─ $(virtualenv_info)%F{#905FE3}%n%{$reset_color%}%F{#f395fb}@%{$reset_color%}%F{#7164ED}%m%{$reset_color%} %F{#f395fb}%c%{$reset_color%} %F{#E993B4}%{$reset_color%}$(git_prompt_info)
 ╰─ $(prompt_char)'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%F{#5367D6}git:(%F{#f14c4c}"

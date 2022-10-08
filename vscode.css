@@ -16003,4 +16003,8 @@ div.terminal-overflow-guard, div.terminal-split-pane {
     background-color: hsl(236, 22%, 13%) !important;
 }
 
+:root {
+    font-weight: 600 !important;
+}
+
 /* whine's mod end */

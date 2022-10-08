@@ -302,7 +302,7 @@
        id="lpetool"
        mode="drag"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;"
-       unit="mm"
+       unit="px"
        show_bbox="1" />
     <eventcontext
        id="text"
@@ -1053,8 +1053,8 @@
   <group
      id="theme"
      defaultPreferDarkTheme="1"
-     defaultIconTheme="Adwaita"
-     defaultGtkTheme="dracula pink"
+     defaultIconTheme="hicolor"
+     defaultGtkTheme="whi_ne"
      narrowSpinButton="1"
      preferDarkTheme="1"
      darkTheme="1"

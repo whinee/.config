@@ -221,11 +221,6 @@
         "editor.unicodeHighlight.ambiguousCharacters": false,
         "editor.unicodeHighlight.invisibleCharacters": true
     },
-    "files.associations": {
-        "*.ymd": "markdown",
-        "*.mmd": "markdown",
-        ".markdownlint.yml": "yaml"
-    },
     "[css]": {
         "editor.defaultFormatter": "aeschli.vscode-css-formatter"
     },
@@ -304,6 +299,16 @@
         "yaml"
     ],
     "window.dialogStyle": "custom",
+    "djlint.formatCss": true,
+    "djlint.formatJs": true,
+    "djlint.preserveBlankLines": true,
+    "[jinja-html]": {
+        "editor.defaultFormatter": "monosans.djlint"
+    },
+    "files.associations": {
+        "*.ymd": "markdown",
+        "*.mmd": "markdown",
+        ".markdownlint.yml": "yaml"
+    },
     "window.zoomLevel": -1,
-
 }

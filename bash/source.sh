@@ -11,7 +11,6 @@ h() {
     done
 }
 
-
 virtualenv_info() {
     [ $VIRTUAL_ENV ] && echo '('$(basename $VIRTUAL_ENV)') '
 }
@@ -110,51 +109,6 @@ extract_frames() {
     t "Extracting frames" "Failed extracting frames." inner "$@"
 }
 
-backup() {
-    local tmp tmp_ls enc_passwd enc_conf_passwd ufc
-
-    pkill -f discord
-    pkill -f firefox
-    pkill -f code
-    pkill -f libreoffice
-    pkill -f virtualbox
-    pkill -f zathura
-
-    printf "Upload Backup (y/n)? "
-    read -r ufc
-    echo
-    case "$ufc" in
-    y | Y) ufc="true" ;;
-    n | N) ufc="false" ;;
-    *)
-        echo "Invalid Confirmation"
-        return 1
-        ;;
-    esac
-
-    printf "Enter Encryption password: "
-    read -sr enc_passwd
-    echo
-    printf "Confirm Encryption password: "
-    read -sr enc_conf_passwd
-    echo
-    if [ "$enc_passwd" != "$enc_conf_passwd" ]; then
-        echo "Passwords do not match."
-        return 1
-    fi
-
-    uf() {
-        tmp_ls=(whi_ne/0/backups/*.tar.gz.gpg) && tmp=${tmp_ls[${#tmp_ls[@]}]} &&
-            t "Uploading" "Failed to Upload." rclone -P copy "$tmp" scuba:BACKUP/
-    }
-
-    cd ~ &&
-    t "Archiving" "Failed to Archive." tar -I "pigz --fast -k" --exclude-ignore=.tarignore -cf "whi_ne/0/backups/$(date '+%y%m%d%H%M').tar.gz" -C whi_ne . &&
-        tmp_ls=(whi_ne/0/backups/*.tar.gz) && tmp=${tmp_ls[${#tmp_ls[@]}]} &&
-        echo "$enc_passwd" | t "Encrypt Archive" "Failed Encrypting Archive." gpg --batch --yes --passphrase-fd 0 -o "$tmp".gpg -c "$tmp" &&
-        rm -rf "$tmp" && [ "$ufc" = "true" ] && uf
-}
-
 pyenv() {
     pyver=${1:-3.10}
     if [[ "$(/usr/bin/python --version | sed -e 's/\.[^.]*$//' -e 's/.* //')" -eq $pyver ]]; then
@@ -207,7 +161,7 @@ clean() {
         echo "$passwd" | sudo -S bleachbit -c --preset >/dev/null &
         bleachbit -c --preset >/dev/null &
         paru -Rsun --noconfirm "$@" &
-        rm -rf "$XDG_DATA_HOME"/Trash &
+        echo "$passwd" | sudo -S rm -rf '/var/cache' "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME/Code/Cache" "$XDG_CONFIG_HOME/Code/CachedConfigurations" "$XDG_CONFIG_HOME/Code/CachedData" "$XDG_CONFIG_HOME/Code/CachedExtensions" "$XDG_CONFIG_HOME/Code/CachedExtensionVSIXs" "$XDG_CONFIG_HOME/Code/Code Cache" "$XDG_CONFIG_HOME/Code/Service Worker/CacheStorage/" "$XDG_CONFIG_HOME/Code/Service Worker/ScriptCache/" "$XDG_DATA_HOME/Trash" &
         wait
     )
 
@@ -216,22 +170,33 @@ clean() {
 }
 
 bd_inst() {
-    cd /home/whine/whi_ne/2/tools/computer/ &&
-        git clone https://github.com/BetterDiscord/BetterDiscord.git &&
-        cd BetterDiscord/ &&
-        python -c "import re
-with open('package.json') as f:op=re.sub('\\s+\"install\": .+','',f.read(), 0, re.MULTILINE)
-with open('package.json','w') as f:f.write(op)" &&
-        rm -f package-lock.json &&
-        yarn &&
-        cd injector &&
-        yarn &&
-        yarn webpack --progress --color &&
-        cd ../renderer &&
-        yarn &&
-        yarn webpack --progress --color &&
-        cd .. &&
-        node scripts/inject.js
+    local UPSTREAM ls pwd ppwd
+    ppwd="$PWD" &&
+    cd "$HOME/whi_ne/2/tools/computer/BetterDiscord/" &&
+        UPSTREAM=${1:-'@{u}'} &&
+        LOCAL=$(git rev-parse @) &&
+        if [ "$LOCAL" = "$(git rev-parse "$UPSTREAM")" ]; then
+            echo "BetterDiscord up to date!"
+        elif [ "$LOCAL" = "$(git merge-base @ "$UPSTREAM")" ]; then
+            cd .. &&
+                rm -rf BetterDiscord/ &&
+                git clone https://github.com/BetterDiscord/BetterDiscord/ &&
+                rm -f package-lock.json &&
+                pwd="$PWD" &&
+                yarn &&
+                ls="$(find . -name 'package.json' -printf '%h\n' | grep -v 'node_modules' | sort -u)" &&
+                for i in $(printf $ls); do
+                    cd $i && yarn
+                    cd "$pwd"
+                done &&
+                for i in $(printf $ls | awk '(NR>1)'); do
+                    cd $i && yarn build
+                    cd "$pwd"
+                done &&
+                cd BetterDiscord/ &&
+                node scripts/inject.js
+        fi
+    cd "$ppwd"
 }
 
 dconv() {
@@ -255,26 +220,59 @@ inst() {
         fi
     fi
 
-    echo "$passwd" | paru -Syyu --noconfirm --sudoloop --batchinstall "$@" --sudoflags -S
-    cd ~ &&
-        cd whi_ne/2/tools/computer/BetterDiscord/ &&
-        HEADHASH="$(git rev-parse HEAD)" &&
-        UPSTREAMHASH="$(git rev-parse main@\{upstream\})" &&
-        if [ "$HEADHASH" != "$UPSTREAMHASH" ]; then
-            bd_inst
-        fi
-    cd ~
+    echo "$passwd" | paru -Syyu --noconfirm --sudoloop --batchinstall "$@" --sudoflags -
+    bd_inst
     echo "$passwd" | _vsc
     echo "$passwd" | clean
 }
 
 # Last Dependents
-
 gnight() {
-    local passwd
+    local passwd tmp tmp_ls enc_passwd enc_conf_passwd ufc
     passwd="$(pw)"
 
-    backup
+    printf "Upload Backup (y/n)? "
+    read -r ufc
+    case "$ufc" in
+    y | Y) ufc="true" ;;
+    n | N) ufc="false" ;;
+    *)
+        echo "Invalid Confirmation"
+        return 1
+        ;;
+    esac
+
+    printf "Enter Encryption password: "
+    read -sr enc_passwd
+    echo
+    printf "Confirm Encryption password: "
+    read -sr enc_conf_passwd
+    echo
+    if [ "$enc_passwd" != "$enc_conf_passwd" ]; then
+        echo "Passwords do not match."
+        return 1
+    fi
+
+    pkill -f discord
+    pkill -f firefox
+    pkill -f code
+    pkill -f libreoffice
+    pkill -f virtualbox
+    pkill -f zathura
+
+    echo "$passwd" | clean
+
+    uf() {
+        tmp_ls=(whi_ne/0/backups/*.tar.gz.gpg) && tmp=${tmp_ls[${#tmp_ls[@]}]} &&
+            t "Uploading" "Failed to Upload." rclone -P copy "$tmp" scuba:BACKUP/
+    }
+
+    cd ~ &&
+        t "Archiving" "Failed to Archive." tar -I "pigz --fast -k" --exclude-ignore=.tarignore -cf "whi_ne/0/backups/$(date '+%y%m%d%H%M').tar.gz" -C whi_ne . &&
+        tmp_ls=(whi_ne/0/backups/*.tar.gz) && tmp=${tmp_ls[${#tmp_ls[@]}]} &&
+        echo "$enc_passwd" | t "Encrypt Archive" "Failed Encrypting Archive." gpg --batch --yes --passphrase-fd 0 -o "$tmp".gpg -c "$tmp" &&
+        rm -rf "$tmp" && [ "$ufc" = "true" ] && uf
+
     echo "$passwd" | inst "$@"
     poweroff
 }

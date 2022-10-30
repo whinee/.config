@@ -25,27 +25,3 @@
 "playerctl next"
     m:0x0 + c:117
     Next
-
-"xdotool key Insert"
-    m:0x8 + c:118
-    Alt + Insert
-
-"xdotool key Home"
-    m:0x8 + c:110
-    Alt + Home
-
-"xdotool key Page_Up"
-    m:0x8 + c:112
-    Alt + Prior
-
-"xdotool key Delete"
-    m:0x8 + c:119
-    Alt + Delete
-
-"xdotool key End"
-    m:0x8 + c:115
-    Alt + End
-
-"xdotool key Page_Down"
-    m:0x8 + c:117
-    Alt + Next

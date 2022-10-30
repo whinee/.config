@@ -21,6 +21,22 @@
     height: 200px !important;
 }
 
+
+div.topSection-13QKHs > header > svg.bannerSVGWrapper-qc0szY {
+    min-height: 230px !important;
+    transform: scale(2);
+}
+
+div.topSection-13QKHs > header > svg.bannerSVGWrapper-qc0szY > foreignObject > div.bannerPremium-86naOf {
+    transform: scale(0.5);
+}
+
+div.topSection-13QKHs > header > svg.bannerSVGWrapper-qc0szY > mask > circle {
+    cy: 126 !important;
+    cx: 81 !important;
+    r: 58 !important;
+}
+
 .avatar-3QF_VA {
     position: absolute;
     top: -168px !important;
@@ -32,21 +48,6 @@
     width: 700px !important;
     max-width: 700px !important;
 }
-
-/* .nameTag-2Nlmsy {
-    margin: 24px 290px 24px 24px !important;
-} */
-
-/* .profileBanner-1owKI5 {
-    height: 1000px !important;
-  } */
-
-/* .focusLock-2tveLW .top-K_jibn .item-3XjbnG, .repoHeader-2KfNvH .top-K_jibn .item-3XjbnG, .header-145e10 .item-3XjbnG, .searchResultsWrap-5RVOkx .tab-2j5AEF, .container-18GwIk .tab-2Jo-cu, .container-2Oqvgx .tab-FftSDB {
-    border-radius: var(--border-radius-2);
-    padding: 0 25px 0 25px;
-    height: 30px;
-    border: 0;
-} */
 
 :root {
     --scrollbars: unset !important;

@@ -12,23 +12,26 @@ cc() {
     fi
 }
 
+epc(){
+    if [ "$1" == "0" ]; then
+        echo -e "\e[1;32m$2\e[0m"
+    else
+        echo -e "\e[1;31m$3\e[0m"
+    fi
+}
+
 pc(){
     sc="$?"
     if git branch >/dev/null 2>/dev/null; then
-        pc="±"
+        epc "$sc" "±" "±"
     else
-        pc="➜"
-    fi
-    if [ "$sc" == "0" ]; then
-        echo -e "\e[1;32m$pc\e[0m"
-    else
-        echo -e "\e[1;31m$pc\e[0m"
+        epc "$sc" "✔" "✘"
     fi
 }
 
 PS1='
-╭─ `virtualenv_info`\e[38;2;144;95;227m\u\e[38;2;243;149;251m@\e[38;2;113;100;237m\h \e[38;2;243;149;251m\w
-╰─ `pc` '
+╭─ `pc` `virtualenv_info`\e[38;2;144;95;227m\u\e[38;2;243;149;251m@\e[38;2;113;100;237m\h \e[38;2;243;149;251m\w
+╰──► '
 
 . "$XDG_CONFIG_HOME"/bash/source.sh
 . "$XDG_CONFIG_HOME"/bash/init.sh

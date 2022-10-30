@@ -12,3 +12,6 @@ openxmlformats
 officedocument
 wordprocessingml
 filepicker
+pactl
+flameshot
+playerctl

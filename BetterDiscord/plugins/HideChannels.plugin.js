@@ -1,7 +1,7 @@
 /**
- * @name HideChannels
+ * @name Hide Channels
  * @author Farcrada
- * @version 2.2.2
+ * @version 2.2.6
  * @description Hide channel list from view.
  *
  * @invite qH6UWCwfTu
@@ -13,44 +13,47 @@
 /** @type {typeof import("react")} */
 const React = BdApi.React;
 
-const config = {
-	info: {
-		name: "Hide Channels",
-		id: "HideChannels",
-		description: "Hide channel list from view.",
-		version: "2.2.2",
-		author: "Farcrada",
-		updateUrl: "https://raw.githubusercontent.com/Farcrada/DiscordPlugins/master/Hide-Channels/HideChannels.plugin.js"
-	},
-	constants: {
-		//The names we need for CSS
-		cssStyle: "HideChannelsStyle",
-		hideElementsName: "hideChannelElement",
-		buttonID: "toggleChannels",
-		buttonHidden: "channelsHidden",
-		buttonVisible: "channelsVisible"
+const { Webpack, Webpack: { Filters } } = BdApi,
+
+	config = {
+		info: {
+			name: "Hide Channels",
+			id: "HideChannels",
+			description: "Hide channel list from view.",
+			version: "2.2.6",
+			author: "Farcrada",
+			updateUrl: "https://raw.githubusercontent.com/Farcrada/DiscordPlugins/master/Hide-Channels/HideChannels.plugin.js"
+		},
+		constants: {
+			//The names we need for CSS
+			cssStyle: "HideChannelsStyle",
+			hideElementsName: "hideChannelElement",
+			buttonID: "toggleChannels",
+			buttonHidden: "channelsHidden",
+			buttonVisible: "channelsVisible"
+		}
 	}
-}
 
 
 module.exports = class HideChannels {
-	//I like my spaces.
-	getName() { return config.info.name; }
 
 
 	load() {
 		try { global.ZeresPluginLibrary.PluginUpdater.checkForUpdate(config.info.name, config.info.version, config.info.updateUrl); }
-		catch (err) { console.error(this.getName(), "Failed to reach the ZeresPluginLibrary for Plugin Updater.", err); }
+		catch (err) { console.error(config.info.name, "Failed to reach the ZeresPluginLibrary for Plugin Updater.", err); }
 	}
 
 	start() {
 		try {
 			//React components for settings
-			this.WindowInfoStore = BdApi.findModuleByProps("isFocused", "isElementFullScreen");
-			this.KeybindStore = BdApi.findModuleByProps("toCombo");
+			this.WindowInfoStore = Webpack.getModule(Filters.byProps("isFocused", "isElementFullScreen"));
+
+			this.KeybindToCombo = Webpack.getModule(Filters.byStrings("numpad plus"), { searchExports: true });
+			this.KeybindToString = Webpack.getModule(Filters.byStrings(".join(\"+\")"), { searchExports: true });
 
 			//The sidebar to "minimize"/hide
-			this.sidebarClass = BdApi.findModuleByProps("container", "base").sidebar;
+			this.sidebarClass = Webpack.getModule(Filters.byProps("container", "base")).sidebar;
+			this.headerBarClass = Webpack.getModule(Filters.byProps("chat", "title")).title;
 
 			//And the keybind
 			this.keybindSetting = this.checkKeybindLoad(BdApi.loadData(config.info.id, "keybind"));
@@ -108,7 +111,7 @@ module.exports = class HideChannels {
 				this.stop();
 			}
 			catch (err) {
-				console.error(this.getName() + ".stop()", err);
+				console.error(config.info.name + ".stop()", err);
 			}
 		}
 	}
@@ -117,23 +120,23 @@ module.exports = class HideChannels {
 		//Settings window is lazy loaded so we need to cache this after it's been loaded (i.e. open settings).
 		//This also allows for a (delayed) call to retrieve a way to prompt a Form
 		if (!this.KeybindRecorder) {
-			this.KeybindRecorder = BdApi.findModuleByDisplayName("KeybindRecorder");
-			this.FormItem = BdApi.findModuleByProps("FormItem").FormItem;
+			this.KeybindRecorder = Webpack.getModule(m => m.prototype?.cleanUp); //BdApi.findModuleByDisplayName("KeybindRecorder");
+			this.FormItem = Webpack.getModule(Filters.byStrings(`["tag","children","className","faded","disabled","required","error"]`));
 		}
 
 		//Return our keybind settings wrapped in a form item
 		return React.createElement(this.FormItem, {
-			title: "Toggle by keybind:"
-		},
+			tag: "h5"
+		}, "Toggle by keybind:",
 			//Containing a keybind recorder.
 			React.createElement(this.KeybindRecorder, {
 				//The `keyup` and `keydown` events register the Ctrl key different
 				//We need to accomodate for that
-				defaultValue: this.KeybindStore.toCombo(this.keybindSetting.replace("control", "ctrl")),
+				defaultValue: this.KeybindToCombo(this.keybindSetting.replace("control", "ctrl")),
 				onChange: (e) => {
 					//Convert the keybind to current locale
 					//Once again accomodate for event differences
-					const keybindString = this.KeybindStore.toString(e).toLowerCase().replace("ctrl", "control");
+					const keybindString = this.KeybindToString(e).toLowerCase().replace("ctrl", "control");
 
 					//Set the keybind and save it.
 					BdApi.saveData(config.info.id, "keybind", keybindString);
@@ -159,21 +162,31 @@ module.exports = class HideChannels {
 
 	patchTitleBar() {
 		//The header bar above the "chat"; this is the same for the `Split View`.
-		const HeaderBar = BdApi.findModule(m => m?.default?.displayName === "HeaderBar");
+		//const HeaderBar = BdApi.findModule(m => m?.default?.displayName === "HeaderBar");
+		const filter = f => f?.Title && f?.Caret,
+			target = Webpack.getModule(m => Object.values(m).some(filter)),
+			HeaderBar = [target, Object.keys(target).find(k => filter(target[k]))];
 
-		BdApi.Patcher.before(config.info.id, HeaderBar, "default", (thisObject, methodArguments, returnValue) => {
+		BdApi.Patcher.before(config.info.id, ...HeaderBar, (thisObject, methodArguments, returnValue) => {
 			//When elements are being re-rendered we need to check if there actually is a place for us.
-			//Along with that we need to check if what we're adding to is an array;
-			//because if not we'll render a button on the split view.
+			//Along with that we need to check if what we're adding to is an array.
 
-			//Also: Prevent thread button appearing with this first line.
 			if (Array.isArray(methodArguments[0]?.children))
-				//Make sure we're on the "original" headerbar and not that of a Voice channel's chat.
-				if (methodArguments[0].children.some?.(child => child?.type?.displayName === "HeaderGuildBreadcrumb" || child?.type?.displayName === "Title"))
+
+				if (methodArguments[0].children.some?.(child =>
+					//Make sure we're on the "original" headerbar and not that of a Voice channel's chat, or thread.
+					child?.props?.channel ||
+					//The friends page
+					child?.type?.Header ||
+					//The Nitro page
+					child?.props?.children === "Nitro"))
+
 					//Make sure our component isn't already present.
 					if (!methodArguments[0].children.some?.(child => child?.key === config.info.id))
 						//And since we want to be on the most left of the header bar for style we unshift into the array.
 						methodArguments[0].children.unshift?.(React.createElement(this.hideChannelComponent, { key: config.info.id }));
+
+
 		});
 	}
 
@@ -196,7 +209,7 @@ module.exports = class HideChannels {
 		 * @param {boolean} bubbling Handle bubbling or not
 		 * @param {object} [target] The object to attach our listener to.
 		 */
-		function useListener(eventName, callback, bubbling, target = document) {
+		function useListener(eventName, callback, bubbling, target = window) {
 			React.useEffect(() => {
 				//ComponentDidMount
 				target.addEventListener(eventName, callback, bubbling);
@@ -213,14 +226,15 @@ module.exports = class HideChannels {
 		}
 
 		/**
-		 * Adds and removes our CSS to make our sidebar appear and disappear.
 		 * @param {Node} sidebar Sidebar node we want to toggle.
 		 * @returns The passed state in reverse.
 		 */
 		function toggleSidebar(sidebar) {
 
 			/**
+			 * Adds and removes our CSS to make our sidebar appear and disappear.
 			 * @param {boolean} state State that determines the toggle.
+			 * @returns The passed state in reverse.
 			 */
 			return state => {
 				//If it is showing, we need to hide it.
@@ -238,11 +252,12 @@ module.exports = class HideChannels {
 		//Keydown event
 		useListener("keydown", e => {
 			//Since we made this an object,
-			//we can make new propertire with `[]`
-			this.currentlyPressed[e.key.toLowerCase()] = true;
+			//we can make new properties with `[]`
+			if (e?.key?.toLowerCase)
+				this.currentlyPressed[e.key.toLowerCase()] = true;
 
-			//Account for bubbling and attach to the global: `window`
-		}, true, window);
+			//Account for bubbling
+		}, true);
 
 		//Keyup event
 		useListener("keyup", e => {
@@ -254,8 +269,8 @@ module.exports = class HideChannels {
 			//Current key goes up, so...
 			this.currentlyPressed[e.key.toLowerCase()] = false;
 
-			//Account for bubbling and attach to the global: `window`
-		}, true, window);
+			//Account for bubbling
+		}, true);
 
 		//Lose focus event
 		useWindowChangeListener(this.WindowInfoStore, () => {
@@ -268,8 +283,6 @@ module.exports = class HideChannels {
 		return React.createElement("div", {
 			//Styling
 			id: config.constants.buttonID,
-			//To identify our object
-			key: "hideChannelComponent",
 			//The icon
 			className: hidden ? config.constants.buttonHidden : config.constants.buttonVisible,
 			//Toggle the sidebar and rerender on toggle; change the state.
@@ -296,15 +309,15 @@ module.exports = class HideChannels {
 			if (typeof (keybindToLoad) === typeof (defaultKeybind)) {
 				keybindToLoad = keybindToLoad.toLowerCase().replace("control", "ctrl");
 				//Does it go into a combo? (i.e.: is it the correct format?)
-				if (this.KeybindStore.toCombo(keybindToLoad))
+				if (this.KeybindToCombo(keybindToLoad))
 					return keybindToLoad.replace("ctrl", "control");
 				else
 					return defaultKeybind;
 			}
 			else
 				//If it's not a string, check if it's a combo.
-				if (this.KeybindStore.toString(keybindToLoad))
-					return this.KeybindStore.toString(keybindToLoad).toLowerCase().replace("ctrl", "control");
+				if (this.KeybindToString(keybindToLoad))
+					return this.KeybindToString(keybindToLoad).toLowerCase().replace("ctrl", "control");
 		}
 		catch (e) { return defaultKeybind; }
 	}

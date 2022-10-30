@@ -6,13 +6,13 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 prompt_char() {
-    git branch >/dev/null 2>/dev/null && echo "%(?:%{$fg_bold[green]%}± %{$reset_color%}:%{$fg_bold[red]%}± %{$reset_color%})" && return
-    echo "%(?:%{$fg_bold[green]%}➜ %{$reset_color%}:%{$fg_bold[red]%}➜ )%{$reset_color%}"
+    git branch >/dev/null 2>/dev/null && echo "%(?:%{$fg_bold[green]%}±%{$reset_color%}:%{$fg_bold[red]%}±%{$reset_color%})" && return
+    echo "%(?:%{$fg_bold[green]%}✔%{$reset_color%}:%{$fg_bold[red]%}✘)%{$reset_color%}"
 }
 
 PROMPT='
-╭─ $(virtualenv_info)%F{#905FE3}%n%{$reset_color%}%F{#f395fb}@%{$reset_color%}%F{#7164ED}%m%{$reset_color%} %F{#f395fb}%c%{$reset_color%} %F{#E993B4}%{$reset_color%}$(git_prompt_info)
-╰─ $(prompt_char)'
+╭─ $(prompt_char) $(virtualenv_info)%F{#905FE3}%n%{$reset_color%}%F{#f395fb}@%{$reset_color%}%F{#7164ED}%m%{$reset_color%} %F{#f395fb}%c%{$reset_color%} %F{#E993B4}%{$reset_color%}$(git_prompt_info)
+╰──► '
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%F{#5367D6}git:(%F{#f14c4c}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "

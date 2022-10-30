@@ -31,6 +31,7 @@ yarn/global/node_modules/
 **/t*.*
 
 # Ignored Files
+BetterDiscord/plugins/MessageLoggerV2Data.config.json
 transmission/dht.dat
 transmission/stats.json
 yarn/global/package.json

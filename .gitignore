@@ -1,7 +1,10 @@
 # Ignored Directories
-.history/
+## Glob
 Code/*
 Code/User/*
+
+## Full
+.history/
 configstore/
 dconf/
 discord/
@@ -24,20 +27,31 @@ teamviewer/
 transmission/blocklists
 transmission/resume
 transmission/torrents
-ura/*
 VirtualBox/
 wakatime/
 yarn/global/node_modules/
-**/t*.*
 
 # Ignored Files
+## Glob
+**/t*.*
+ura/*
+.org.chromium.Chromium.*
+
+## Full
+BetterDiscord/plugins/0BDFDB.raw.css
+BetterDiscord/plugins/0BDFDB.config.json
+BetterDiscord/plugins/0BDFDB.data.json
+BetterDiscord/plugins/0BDFDB.raw.css
+BetterDiscord/plugins/BetterFriendList.config.json
+BetterDiscord/plugins/GameActivityToggle.config.json
+BetterDiscord/plugins/InvisibleTyping.config.json
 BetterDiscord/plugins/MessageLoggerV2Data.config.json
+BetterDiscord/plugins/PermissionsViewer.config.json
 transmission/dht.dat
 transmission/stats.json
 yarn/global/package.json
 yarn/global/yarn-error.log
 yarn/global/yarn.lock
-.org.chromium.Chromium.*
 QtProject.conf
 
 # Included Directories

@@ -1,0 +1,62 @@
+# Ignored Directories
+## Glob
+Code/*
+Code/User/*
+
+## Full
+.history/
+BetterDiscord/plugins
+BetterDiscord/themes
+chromium/
+configstore/
+dconf/
+discord/
+discordcanary/
+Electron/
+GIMP/
+inkscape/
+Insomnia/
+keepassxc/
+libreoffice/
+obs-studio/basic/
+obs-studio/logs/
+obs-studio/plugin_config/
+obs-studio/profiler_data/
+obsidian/
+powershell/
+procps/
+pulse/
+rclone/
+sourcetrail/
+teamviewer/
+transmission/blocklists
+transmission/resume
+transmission/torrents
+VirtualBox/
+wakatime/
+yarn/global/node_modules/
+
+# Ignored Files
+## Glob
+**/t*.*
+ura/*
+.org.chromium.Chromium.*
+
+## Full
+gtk-3.0/bookmarks
+transmission/dht.dat
+transmission/stats.json
+yarn/global/package.json
+yarn/global/yarn-error.log
+yarn/global/yarn.lock
+QtProject.conf
+
+# Included Directories
+!Code/User/
+
+# Included Files
+!Code/languagepacks.json
+!Code/Preferences
+!Code/User/keybindings.json
+!Code/User/settings.json
+!Code/User/tasks.json

@@ -1,0 +1,48 @@
+{
+    "border": "normal",
+    "floating": "auto_off",
+    "layout": "tabbed",
+    "marks": [],
+    "percent": null,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "normal",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+                "height": 768,
+                "width": 1366,
+                "x": 0,
+                "y": 0
+            },
+            "marks": [],
+            "percent": 0.5,
+            "swallows": [
+                {
+                    "class": "^firefoxdeveloperedition$"
+                }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "normal",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+                "height": 1060,
+                "width": 1916,
+                "x": 2,
+                "y": 18
+            },
+            "marks": [],
+            "percent": 0.5,
+            "swallows": [
+                {
+                    "class": "^Code$"
+                }
+            ],
+            "type": "con"
+        }
+    ]
+}

@@ -1,0 +1,67 @@
+[
+	{
+		"key": "ctrl+r",
+		"command": "-workbench.action.reloadWindow",
+		"when": "isDevelopment"
+	},
+	{
+		"key": "ctrl+alt+meta+r",
+		"command": "workbench.action.reloadWindow"
+	},
+	{
+		"key": "ctrl+alt+meta+/",
+		"command": "workbench.action.terminal.kill"
+	},
+	{
+		"key": "ctrl+alt+meta+numpad0",
+		"command": "trailing-spaces.deleteTrailingSpaces"
+	},
+	{
+		"key": "ctrl+alt+meta+numpad1",
+		"command": "editor.action.indentationToSpaces"
+	},
+	{
+		"key": "ctrl+alt+meta+\\",
+		"command": "editor.action.formatDocument",
+		"when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
+	},
+	{
+		"key": "ctrl+shift+i",
+		"command": "-editor.action.formatDocument",
+		"when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
+	},
+	{
+		"key": "ctrl+alt+meta+.",
+		"command": "python.execInTerminal"
+	},
+	{
+		"key": "ctrl+alt+meta+numpad9",
+		"command": "extension.addFileToIgnore"
+    },
+    {
+        "key": "ctrl+alt+meta+]",
+        "command": "editor.emmet.action.wrapWithAbbreviation"
+    },
+    {
+        "key": "ctrl+alt+meta+numpad7",
+        "command": "extension.linecount.workspace"
+    },
+    {
+        "key": "ctrl+alt+meta+p",
+        "command": "extension.taskboard"
+    },
+    {
+        "key": "ctrl+alt+meta+y",
+        "command": "vscode-yaml-sort.customSortYaml_1"
+    },
+    {
+        "key": "ctrl+alt+meta+z",
+        "command": "copyRelativeFilePath",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+k ctrl+shift+alt+c",
+        "command": "-copyRelativeFilePath",
+        "when": "editorFocus"
+    }
+]

@@ -1,0 +1,31 @@
+"flameshot gui"
+    m:0x0 + c:107
+    Print
+
+"pactl set-sink-mute '@DEFAULT_SINK@' toggle && bash ~/.config/scripts/autostart/sync-all-sinks-volume.sh & bash ~/.config/scripts/autostart/sync-all-sink-inputs-volume.sh & wait"
+    m:0x0 + c:118
+    Insert
+
+"pactl set-sink-volume '@DEFAULT_SINK@' -3% && bash ~/.config/scripts/autostart/sync-all-sinks-volume.sh & bash ~/.config/scripts/autostart/sync-all-sink-inputs-volume.sh & wait"
+    m:0x0 + c:110
+    Home
+
+"pactl set-sink-volume '@DEFAULT_SINK@' +3% && bash ~/.config/scripts/autostart/sync-all-sinks-volume.sh & bash ~/.config/scripts/autostart/sync-all-sink-inputs-volume.sh & wait"
+    m:0x0 + c:112
+    Prior + Release
+
+"playerctl previous"
+    m:0x0 + c:119
+    Delete
+
+"playerctl play-pause"
+    m:0x0 + c:115
+    End
+
+"playerctl next"
+    m:0x0 + c:117
+    Next
+
+"bash /home/whine/.config/bash/source.sh xshortcut"
+    m:0x0 + c:127
+    Pause

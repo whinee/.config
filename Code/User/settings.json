@@ -1,0 +1,375 @@
+{
+    "shellcheck.exclude": [
+        "1087",
+        "1091",
+        "2016",
+        "2025",
+        "2045",
+        "2046",
+        "2059",
+        "2068",
+        "2086",
+        "2116",
+        "2119",
+        "2120",
+        "2148",
+        "2154",
+        "2155",
+        "2162",
+        "2164",
+        "2195",
+        "2238",
+        "3024",
+        "3043",
+        "3057",
+        "3059"
+    ],
+    "python.analysis.diagnosticSeverityOverrides": {
+        // none
+        "reportMatchNotExhaustive": "none",
+        "reportUnboundVariable": "none",
+        "reportSelfClsParameterName": "none",
+        "reportMissingParameterType": "none",
+        "reportUntypedFunctionDecorator": "none",
+        "reportOptionalCall": "none",
+        "reportMissingTypeArgument": "none",
+        "reportUnusedVariable": "none",
+        "reportUntypedBaseClass": "none",
+        "reportUnknownLambdaType": "none",
+        "reportUnknownVariableType": "none",
+        "reportMissingTypeStubs": "none",
+        "reportUnknownArgumentType": "none",
+        "reportGeneralTypeIssues": "none",
+        "reportUnknownMemberType": "none",
+        "reportUnknownParameterType": "none",
+        "reportOptionalSubscript": "none",
+        "reportOptionalMemberAccess": "none",
+        "reportFunctionMemberAccess": "none",
+        "reportInvalidStringEscapeSequence": "none",
+        "reportMissingImports": "none",
+        "reportConstantRedefinition": "none",
+        "reportOptionalIterable": "none",
+        "reportUnnecessaryIsInstance": "none",
+        "reportUnnecessaryComparison": "none",
+        "reportUnusedFunction": "none",
+        "reportUntypedClassDecorator": "none",
+        "reportPrivateImportUsage": "none",
+        "reportPrivateUsage": "none",
+        // warning
+        "reportUnusedImport": "warning",
+        // error
+        "reportMissingParameterDoc": "error"
+    },
+    "cSpell.ignorePaths": [
+        "package-lock.json",
+        "node_modules",
+        "vscode-extension",
+        ".git/objects",
+        ".vscode",
+        ".vscode-insiders",
+        "dev/constants/dict/**/*",
+        "**/req.txt",
+        "**/requirements.txt",
+        "**/*.mp"
+    ],
+    "files.exclude": {
+        // false
+        "**/.git*": false,
+        // true
+        "**/__pycache__": true,
+        "**/*.egg-info/": true,
+        ".history": true,
+        ".mypy_cache": true,
+        "node_modules": true,
+        "venv": true,
+        "pyenv": true
+    },
+    "search.exclude": {
+        "**/dist": true,
+        "**/node_modules": true,
+        "**/pyenv": true,
+        "**/tmp": true,
+        "**/venv": true
+    },
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook",
+        "*.gzip": "default",
+        "*.db": "default",
+        "*.svg": "default",
+        "*.md": "default"
+    },
+    "vscord.app.name": "Visual Studio Code",
+    "vscord.status.details.text.editing": "{file_name}:{current_line}:{current_column} in {workspace}",
+    "vscord.status.details.text.viewing": "{file_name}:{current_line}:{current_column} in {workspace}",
+    "vscord.status.state.text.editing": "{line_count} LOC (❌{problems_count_errors}, ⚠️{problems_count_warnings})",
+    "vscord.status.state.text.viewing": "{line_count} LOC (❌{problems_count_errors}, ⚠️{problems_count_warnings})",
+
+    "vscord.status.details.text.idle": "Idle",
+    "vscord.status.state.text.idle": "Idling...",
+
+    "vscord.status.image.large.editing.text": "Editing a {Lang} file",
+
+    // Button 1
+    "vscord.status.buttons.button1.enabled": true,
+    "vscord.status.buttons.button1.active.enabled": true,
+    "vscord.status.buttons.button1.idle.enabled": true,
+    "vscord.status.buttons.button1.inactive.enabled": true,
+    "vscord.status.buttons.button1.git.active.enabled": false,
+    "vscord.status.buttons.button1.git.idle.enabled": false,
+    "vscord.status.buttons.button1.active.label": "Check Out My Github Account!",
+    "vscord.status.buttons.button1.idle.label": "Check Out My Github Account!",
+    "vscord.status.buttons.button1.inactive.label": "Check Out My Github Account!",
+    "vscord.status.buttons.button1.active.url": "https://github.com/whinee",
+    "vscord.status.buttons.button1.idle.url": "https://github.com/whinee",
+    "vscord.status.buttons.button1.inactive.url": "https://github.com/whinee",
+
+    // Button 2
+    "vscord.status.buttons.button2.enabled": true,
+    "vscord.status.buttons.button2.active.enabled": false,
+    "vscord.status.buttons.button2.idle.enabled": false,
+    "vscord.status.buttons.button2.inactive.enabled": false,
+    "vscord.status.buttons.button2.git.active.enabled": true,
+    "vscord.status.buttons.button2.git.idle.enabled": true,
+    "vscord.status.buttons.button2.git.active.label": "View Repository",
+    "vscord.status.buttons.button2.git.idle.label": "View Repository",
+    "vscord.status.buttons.button2.git.active.url": "{git_url}",
+    "vscord.status.buttons.button2.git.idle.url": "{git_url}",
+    "diffEditor.codeLens": true,
+    "editor.suggestSelection": "first",
+    "telemetry.telemetryLevel": "off",
+    "syntax.highlightTerms": [
+        "type",
+        "scope",
+        "function",
+        "variable",
+        "number",
+        "string",
+        "comment",
+        "constant",
+        "directive",
+        "control",
+        "operator",
+        "modifier",
+        "punctuation"
+    ],
+    "indentRainbow.colors": [
+        "rgba(255, 0, 0, 0.07)",
+        "rgba(255, 128, 0, 0.07)",
+        "rgba(255, 255, 0, 0.07)",
+        "rgba(0, 255, 0, 0.07)",
+        "rgba(0, 128, 255, 0.07)",
+        "rgba(0, 0, 255, 0.07)",
+        "rgba(128, 0, 255, 0.07)"
+    ],
+    "indentRainbow.errorColor": "rgba(255, 0, 0, 0.07)",
+    "indentRainbow.updateDelay": 0,
+    "editor.detectIndentation": false,
+    "editor.stickyTabStops": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "explorer.confirmDelete": false,
+    "python.formatting.provider": "black",
+    "python.globalModuleInstallation": true,
+    "editor.fontFamily": "'ComicCodeLigatures', 'ComicCodeLigatures', 'ComicCodeLigatures', 'ComicCodeLigatures'",
+    "python.linting.flake8Args": [
+        "--ignore=E203,E266,E501,E731,F403,F405"
+    ],
+    "python.linting.flake8CategorySeverity.F": "Information",
+    "python.linting.flake8CategorySeverity.W": "Information",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": false,
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "explorer.confirmDragAndDrop": false,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "bash",
+            "args": [
+                "--init-file",
+                "/home/whine/.config/bash/rc"
+            ]
+        },
+        "zsh": {
+            "path": "zsh",
+            "args": [
+                "-c",
+                "ZDOTDIR=$XDG_CONFIG_HOME/zsh/ zsh"
+            ]
+        },
+        "fish": {
+            "path": "fish"
+        },
+        "tmux": {
+            "path": "tmux",
+            "icon": "terminal-tmux"
+        },
+        "pwsh": {
+            "path": "pwsh",
+            "icon": "terminal-powershell"
+        },
+        "sh": {
+            "path": "/bin/sh"
+        }
+    },
+    "terminal.integrated.wordSeparators": "",
+    "[markdown]": {
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.diagnosticMode": "workspace",
+    "redhat.telemetry.enabled": false,
+    "yaml.format.singleQuote": true,
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "keep",
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        }
+    },
+    "files.autoGuessEncoding": true,
+    "gitlens.gitCommands.skipConfirmations": [
+        "fetch:command",
+        "stash-push:command",
+        "switch:command",
+        "branch-create:command"
+    ],
+    "files.autoSaveDelay": 0,
+    "extensions.ignoreRecommendations": true,
+    "editor.inlineSuggest.enabled": true,
+    "[plaintext]": {
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+        "editor.unicodeHighlight.invisibleCharacters": true
+    },
+    "[css]": {
+        "editor.defaultFormatter": "aeschli.vscode-css-formatter"
+    },
+    "editor.rulers": [
+        {
+            "column": 80,
+            "color": "#c7aef8"
+        },
+        {
+            "column": 88,
+            "color": "#8c51ff"
+        },
+    ],
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "editor.minimap.enabled": false,
+    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.fontWeight": "bold",
+    "editor.fontSize": 16,
+    "editor.fontWeight": "1000",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "markdown.preview.doubleClickToSwitchToEditor": false,
+    "markdown.preview.scrollPreviewWithEditor": false,
+    "editor.fontLigatures": true,
+    "editor.guides.indentation": false,
+    "terminal.integrated.scrollback": 100000,
+    "python.venvPath": "./venv",
+    "python.venvFolders": [
+        "./venv"
+    ],
+    "python.terminal.activateEnvInCurrentTerminal": false,
+    "html.format.wrapLineLength": 88,
+    "workbench.colorTheme": "piiiiink!",
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "workbench.startupEditor": "none",
+    "editor.cursorBlinking": "phase",
+    "editor.cursorSmoothCaretAnimation": true,
+    "cSpell.enableFiletypes": [
+        "!plaintext",
+        "!python"
+    ],
+    "window.menuBarVisibility": "toggle",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "python.terminal.activateEnvironment": false,
+    "python.defaultInterpreterPath": "/usr/bin/python3.10",
+    "cSpell.enabledLanguageIds": [
+        "markdown",
+        "plaintext"
+    ],
+    "python.analysis.autoSearchPaths": false,
+    "cSpell.customDictionaries": {
+        "project-words": {
+            "name": "project-words",
+            "path": "${workspaceRoot}/dev/constants/dict/user.txt",
+            "description": "Words used in this project",
+            "addWords": true
+        },
+        // Enable the `custom` dictionary
+        "custom": true,
+        // Disable the `internal-terms` dictionary
+        "internal-terms": false
+    },
+    "autoDocstring.generateDocstringOnEnter": true,
+    "vscode-color-picker.languages": [
+        "python",
+        "javascript",
+        "typescript",
+        "yaml"
+    ],
+    "window.dialogStyle": "custom",
+    "djlint.formatCss": true,
+    "djlint.formatJs": true,
+    "djlint.preserveBlankLines": true,
+    "files.associations": {
+        "*.ymd": "markdown",
+        "*.mmd": "markdown",
+        ".markdownlint.yml": "yaml"
+    },
+    "files.autoSave": "afterDelay",
+    "vscode-office.autoTheme": false,
+    "highlight-bad-chars.additionalUnicodeChars": [
+        "\u180E",
+        "\u200B",
+        "\u200C",
+        "\u200D",
+        "\u200E",
+        "\u200F",
+        "\u2060",
+        "\uFEFF",
+    ],
+    "editor.stickyScroll.enabled": true,
+    "editor.wordWrap": "on",
+    "markdown.marp.exportType": "html",
+    "markdown.marp.enableHtml": true,
+    "mypy.runUsingActiveInterpreter": true,
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.linting.mypyArgs": [
+        "--cache-dir=.mypy_cache",
+        "--follow-imports=silent",
+        "--ignore-missing-imports",
+        "--no-pretty",
+        "--show-column-numbers",
+        "--strict",
+        "--no-warn-unused-ignores",
+        "--warn-unused-configs"
+    ],
+    "python.analysis.logLevel": "Error",
+    "python.interpreter.infoVisibility": "always",
+    "python.linting.mypyCategorySeverity.note": "Hint",
+    "python.experiments.enabled": false,
+    "python.jediEnabled": false,
+    "python.languageServer": "Pylance",
+    "window.zoomLevel": -1,
+}

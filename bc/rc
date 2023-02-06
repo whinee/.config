@@ -1,0 +1,1 @@
+define i(x){auto s;s=scale;scale=0;x/=1;scale=s;return(x)}define p(x,y){if(y==i(y)){return(x^y)};return(e(y*l(x)))}
